@@ -73,16 +73,19 @@ export const createZavisPayload = (formData: FormData): ZavisApiPayload => {
 
 // Call Zavis API
 export const callZavisApi = async (payload: ZavisApiPayload) => {
+  console.log('Sending payload to Zavis API:', JSON.stringify(payload, null, 2));
+  
   const response = await fetch("https://zavis-ai.vercel.app/api/calls", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0NjY4MDUwMywiZXhwIjoxODQ3Mjg1MzAzfQ.DE0cvEoYN2WA5keExm6CP5YtHvB_p1mLaWPAuqudhUw"
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2ODI2ZjcwNjUwOWQ3YjgwZWYwMmYyYTUiLCJ0eXBlIjoiYWRtaW4iLCJpYXQiOjE3NDY2ODA1MDMsImV4cCI6MTg0NzI4NTMwM30.yxrrOW4E-Qn5yoNKn98tYlCjNk_hffH-5U7pPCaHC64"
     },
     body: JSON.stringify(payload)
   });
 
   const data = await response.json();
+  console.log('Zavis API response:', data);
 
   if (!response.ok) {
     throw new Error(`Failed to initiate call: ${data.message || 'Unknown error'}`);
